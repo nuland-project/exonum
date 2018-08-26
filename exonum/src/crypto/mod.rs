@@ -48,6 +48,8 @@ use helpers::Round;
 #[cfg(feature = "sodiumoxide-crypto")]
 use self::crypto_lib::sodiumoxide as crypto_impl;
 
+use hex::encode;
+
 #[macro_use]
 mod macros;
 
@@ -145,6 +147,12 @@ pub fn gen_keypair() -> (PublicKey, SecretKey) {
 /// assert!(crypto::verify(&signature, &data, &public_key));
 /// ```
 pub fn verify(sig: &Signature, data: &[u8], pubkey: &PublicKey) -> bool {
+    println!("sig.0: {:?}", sig.0);
+    println!("data: {:?}", data);
+    println!("pubkey.0: {:?}", pubkey.0);
+    println!("sig.0: {:?}", encode(sig.0));
+    println!("data: {:?}", encode(data));
+    println!("pubkey.0: {:?}", encode(pubkey.0));
     crypto_impl::verify(&sig.0, data, &pubkey.0)
 }
 

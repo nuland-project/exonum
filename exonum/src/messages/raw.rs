@@ -23,6 +23,8 @@ use crypto::{
 };
 use encoding::{self, CheckedOffset, Field, Offset, Result as StreamStructResult};
 
+use hex::encode;
+
 /// Length of the message header.
 pub const HEADER_LENGTH: usize = 10;
 /// Version of the protocol. Different versions are incompatible.
@@ -299,6 +301,13 @@ impl Message for RawMessage {
     }
 
     fn verify_signature(&self, pub_key: &PublicKey) -> bool {
+        println!("self.signature(): {:?}", self.signature());
+        println!("self.body(): {:?}", self.body());
+        println!("pub_key: {:?}", pub_key);
+
+        println!("self.signature(): {:?}", encode(self.signature()));
+        println!("self.body(): {:?}", encode(self.body()));
+        println!("pub_key: {:?}", encode(pub_key));
         verify(self.signature(), self.body(), pub_key)
     }
 }

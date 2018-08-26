@@ -227,7 +227,7 @@ impl ExonumJson for F32 {
         buffer: &mut B,
         from: Offset,
         to: Offset,
-    ) -> Result<(), Box<Error>> {
+    ) -> Result<(), Box<dyn Error>> {
         let number = value.as_f64().ok_or("Can't cast json as float")?;
         buffer.write(
             from,
@@ -237,7 +237,7 @@ impl ExonumJson for F32 {
         Ok(())
     }
 
-    fn serialize_field(&self) -> Result<Value, Box<Error + Send + Sync>> {
+    fn serialize_field(&self) -> Result<Value, Box<dyn Error + Send + Sync>> {
         Ok(Value::Number(
             Number::from_f64(f64::from(self.get())).ok_or("Can't cast float as json")?
         ))
@@ -245,7 +245,7 @@ impl ExonumJson for F32 {
 }
 
 impl ExonumJsonDeserialize for F32 {
-    fn deserialize(value: &Value) -> Result<Self, Box<Error>> {
+    fn deserialize(value: &Value) -> Result<Self, Box<dyn Error>> {
         let number = value.as_f64().ok_or("Can't cast json as float")?;
         Ok(Self::try_from(number as f32).ok_or("Invalid float value in json")?)
     }
@@ -257,7 +257,7 @@ impl ExonumJson for F64 {
         buffer: &mut B,
         from: Offset,
         to: Offset,
-    ) -> Result<(), Box<Error>> {
+    ) -> Result<(), Box<dyn Error>> {
         let number = value.as_f64().ok_or("Can't cast json as float")?;
         buffer.write(
             from,
@@ -267,7 +267,7 @@ impl ExonumJson for F64 {
         Ok(())
     }
 
-    fn serialize_field(&self) -> Result<Value, Box<Error + Send + Sync>> {
+    fn serialize_field(&self) -> Result<Value, Box<dyn Error + Send + Sync>> {
         Ok(Value::Number(
             Number::from_f64(self.get()).ok_or("Can't cast float as json")?
         ))
@@ -275,7 +275,7 @@ impl ExonumJson for F64 {
 }
 
 impl ExonumJsonDeserialize for F64 {
-    fn deserialize(value: &Value) -> Result<Self, Box<Error>> {
+    fn deserialize(value: &Value) -> Result<Self, Box<dyn Error>> {
         let number = value.as_f64().ok_or("Can't cast json as float")?;
         Ok(Self::try_from(number).ok_or("Invalid float value in json")?)
     }
