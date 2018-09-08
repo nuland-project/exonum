@@ -134,6 +134,7 @@ pub fn gen_keypair_from_seed(seed: &Seed) -> (PublicKey, SecretKey) {
 /// ```
 pub fn gen_keypair() -> (PublicKey, SecretKey) {
     let (pubkey, secret_key) = gen_keypair_sodium();
+    println!("secret_key: {:?}", secret_key);
     (PublicKey(pubkey), SecretKey(secret_key))
 }
 
