@@ -125,6 +125,7 @@ pub fn gen_keypair_from_seed(seed: &Seed) -> (PublicKey, SecretKey) {
 /// ```
 pub fn gen_keypair() -> (PublicKey, SecretKey) {
     let (pubkey, secret_key) = crypto_impl::gen_keypair();
+    println!("secret_key: {:?}", secret_key);
     (PublicKey(pubkey), SecretKey(secret_key))
 }
 
